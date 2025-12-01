@@ -1,0 +1,37 @@
+{
+    "Senin": {
+        "open": "06:00",
+        "close": "21:00",
+        "closed": false
+    },
+    "Selasa": {
+        "open": "06:00",
+        "close": "21:00",
+        "closed": true
+    },
+    "Rabu": {
+        "open": "06:00",
+        "close": "21:00",
+        "closed": true
+    },
+    "Kamis": {
+        "open": "06:00",
+        "close": "21:00",
+        "closed": true
+    },
+    "Jumat": {
+        "open": "06:00",
+        "close": "21:00",
+        "closed": true
+    },
+    "Sabtu": {
+        "open": "06:00",
+        "close": "21:00",
+        "closed": true
+    },
+    "Minggu": {
+        "open": "08:00",
+        "close": "21:00",
+        "closed": true
+    }
+}
