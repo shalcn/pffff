@@ -402,8 +402,7 @@ document.addEventListener('DOMContentLoaded',function(){
         else{indicator.textContent='BUKA';indicator.classList.add('open');}
       });
     };
-    var isPages=(location.host && /github\.io$/.test(location.host));
-    var src=isPages? 'hours.json' : 'hours.php';
+    var src='hours.json';
     try{
       fetch(src+'?v='+Date.now(),{cache:'no-store'})
         .then(function(r){return r.json()})
