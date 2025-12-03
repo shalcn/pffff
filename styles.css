@@ -334,6 +334,9 @@ background-size:cover;background-position:center}
   .story{padding:60px 16px}
   .story p{font-size:14px;line-height:1.8}
   .extras .wrap{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  .extras .wrap > :nth-child(3){order:-1;grid-column:1 / -1}
+  .testi-stars{white-space:nowrap;display:inline-flex;gap:2px}
+  .testi-stars i{font-size:14px}
   .lang-switch-mobile{display:inline-flex;margin-left:8px}
   .why h2{font-size:22px}
   .pricing-head h2{font-size:20px}

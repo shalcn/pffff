@@ -350,7 +350,7 @@ document.addEventListener('DOMContentLoaded',function(){
         '%0AEmail: '+encodeURIComponent(email)+
         '%0ACabang: '+encodeURIComponent(lokasi)+
         '%0APaket: '+encodeURIComponent(paket);
-      var url='https://wa.me/628989282512?text='+msg;
+      var url='https://wa.me/62895392062783?text='+msg;
       window.open(url,'_blank','noopener');
       setTimeout(function(){ if(submitBtn){ submitBtn.classList.remove('loading'); submitBtn.textContent='Kirim'; } }, 1200);
     });
