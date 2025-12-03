@@ -16,11 +16,12 @@
       <img src="pfgymlogo.png?v=3" alt="PF Gym & Fitness Logo" />
     </a>
     <nav class="nav">
-      <a href="index.html#top" class="nav-link">Beranda</a>
-      <a href="about.html" class="nav-link">Tentang Kami</a>
-      <a href="index.html#testi" class="nav-link">Testimoni</a>
-      <a href="bmi.html" class="nav-link">Tes BMI</a>
-      <a href="login.html" class="nav-link active">Login</a>
+      <a href="index.html#top" class="nav-link" data-i18n="nav_home">Beranda</a>
+      <a href="about.html" class="nav-link" data-i18n="nav_about">Tentang Kami</a>
+      <a href="index.html#testi" class="nav-link" data-i18n="nav_testi">Testimoni</a>
+      <a href="bmi.html" class="nav-link" data-i18n="nav_bmi">Tes BMI</a>
+      <a href="login.html" class="nav-link active" data-i18n="nav_login">Login</a>
+      <span class="lang-switch"><a href="index.html" data-lang="id" class="active">IN</a><a href="index-en.html" data-lang="en">ENG</a></span>
     </nav>
     <button class="menu-btn" id="menuBtn" aria-label="Menu"><i class="bi bi-list"></i></button>
     <div class="mobile-menu" id="mobileMenu">
@@ -29,6 +30,11 @@
       <a href="index.html#testi" class="m-item">Testimoni</a>
       <a href="bmi.html" class="m-item">Tes BMI</a>
       <a href="login.html" class="m-item">Login</a>
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,.12);margin:8px 0">
+      <div style="display:flex;gap:8px;padding:4px 8px">
+        <a href="index.html" class="m-item lang active" style="flex:1;text-align:center">IN</a>
+        <a href="index-en.html" class="m-item lang" style="flex:1;text-align:center">ENG</a>
+      </div>
     </div>
     <div class="menu-overlay" id="menuOverlay"></div>
   </header>
@@ -37,7 +43,7 @@
     <section class="member" style="gap:16px">
       <div style="width:100%;max-width:560px;display:flex;align-items:center;justify-content:space-between">
         <a href="index.html#top" class="back-btn"><i class="bi bi-arrow-left"></i> Kembali</a>
-        <h1 class="page-title">Login</h1>
+        <h1 class="page-title" data-i18n="login_title">Login</h1>
         <span></span>
       </div>
       <div class="form-card">
@@ -45,6 +51,7 @@
           <label>Username<input id="pfUser" type="text" placeholder="Username" style="padding:10px;border-radius:12px" autocomplete="off" autocapitalize="off" spellcheck="false"></label>
           <label>Password<input id="pfPass" type="password" placeholder="Password" style="padding:10px;border-radius:12px" autocomplete="off"></label>
           <button type="submit" class="cta">LOGIN</button>
+          <div id="loginMsg" class="form-errors" style="display:none"></div>
         </form>
       </div>
     </section>
@@ -54,23 +61,53 @@
     <div class="copy">© PF Gym. All Rights Reserved.</div>
   </footer>
   <a href="https://wa.me/628989282512" class="wa-float" aria-label="Chat WhatsApp"><i class="bi bi-whatsapp"></i></a>
-  <script src="app.js?v=4"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function(){
-      var form = document.getElementById('pfLoginForm');
-      if(!form) return;
-      form.addEventListener('submit', function(e){
-        e.preventDefault();
-        var u = document.getElementById('pfUser').value.trim();
-        var p = document.getElementById('pfPass').value.trim();
-        if(u==='pfgym' && p==='admin@1pfgymyth'){
-          alert('Berhasil login');
-          location.href='admin.html';
-        } else {
-          alert('Username/password salah');
-        }
-      });
-    });
+    window.FIREBASE_ENABLED=true;
+    window.FIREBASE_CONFIG={
+      apiKey:"AIzaSyAG-bupL2ytutqB2wb4RwqjiUViqEgmPso",
+      authDomain:"pfgym-eba3a.firebaseapp.com",
+      projectId:"pfgym-eba3a",
+      storageBucket:"pfgym-eba3a.firebasestorage.app",
+      messagingSenderId:"979974831658",
+      appId:"1:979974831658:web:ba12cbab7fbc9370ae4d53",
+      measurementId:"G-6EWGZ0VCY8"
+    };
+    window.FIREBASE_OWNER_EMAIL='shalcnzee@gmail.com';
   </script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+  <script src="firebase.js?v=1"></script>
+  <script src="app.js?v=4"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function(){
+        var form = document.getElementById('pfLoginForm');
+        if(!form) return;
+        var msg=document.getElementById('loginMsg');
+        var show=function(t){ if(msg){ msg.style.display='block'; msg.textContent=t; } else { alert(t); } };
+        form.addEventListener('submit', function(e){
+          e.preventDefault();
+          var u = document.getElementById('pfUser').value.trim();
+          var p = document.getElementById('pfPass').value.trim();
+          var userOk = (u==='pfgym');
+          var passOk = (p==='admin@1pfgymyth');
+          if(!userOk || !passOk){
+            show('username/password tidak tersedia');
+            return;
+          }
+          try{
+            if(!(window.firebaseUtil && window.firebaseUtil.enabled)) return show('data tidak tersedia');
+            show('Membuka login Google...');
+            window.firebaseUtil.login().then(function(){
+              if(window.firebaseUtil.isOwner && window.firebaseUtil.isOwner()){
+                location.href='admin.html';
+              } else {
+                show('data tidak tersedia');
+              }
+            }).catch(function(){ show('data tidak tersedia'); });
+          }catch(_){ show('data tidak tersedia'); }
+        });
+      });
+    </script>
 </body>
 </html>

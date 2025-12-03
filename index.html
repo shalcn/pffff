@@ -16,11 +16,12 @@
       <img src="pfgymlogo.png?v=3" alt="PF Gym & Fitness Logo" />
     </a>
     <nav class="nav">
-      <a href="index.html#top" class="nav-link active">Beranda</a>
-      <a href="about.html" class="nav-link">Tentang Kami</a>
-      <a href="index.html#testi" class="nav-link">Testimoni</a>
-      <a href="bmi.html" class="nav-link">Tes BMI</a>
-      <a href="login.html" class="nav-link">Login</a>
+      <a href="index.html#top" class="nav-link active" data-i18n="nav_home">Beranda</a>
+      <a href="about.html" class="nav-link" data-i18n="nav_about">Tentang Kami</a>
+      <a href="index.html#testi" class="nav-link" data-i18n="nav_testi">Testimoni</a>
+      <a href="bmi.html" class="nav-link" data-i18n="nav_bmi">Tes BMI</a>
+      <a href="login.html" class="nav-link" data-i18n="nav_login">Login</a>
+      <span class="lang-switch"><a href="index.html" data-lang="id" class="active">IN</a><a href="index-en.html" data-lang="en">ENG</a></span>
     </nav>
     <button class="menu-btn" id="menuBtn" aria-label="Menu"><i class="bi bi-list"></i></button>
     <div class="mobile-menu" id="mobileMenu">
@@ -29,6 +30,11 @@
       <a href="index.html#testi" class="m-item">Testimoni</a>
       <a href="bmi.html" class="m-item">Tes BMI</a>
       <a href="login.html" class="m-item">Login</a>
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,.12);margin:8px 0">
+      <div style="display:flex;gap:8px;padding:4px 8px">
+        <a href="index.html" class="m-item lang active" style="flex:1;text-align:center">IN</a>
+        <a href="index-en.html" class="m-item lang" style="flex:1;text-align:center">ENG</a>
+      </div>
     </div>
     <div class="menu-overlay" id="menuOverlay"></div>
   </header>
@@ -273,18 +279,26 @@
   <section class="extras" aria-labelledby="lainnya">
     <div class="wrap">
       <div class="col">
-        <h3 id="lainnya">Lainnya</h3>
+        <h3 id="lainnya" data-i18n="extras_more">Lainnya</h3>
         <ul class="links-list">
           <li><a href="feedback.html">Feedback</a></li>
           <li><a href="privacy.html">Kebijakan Privasi</a></li>
         </ul>
       </div>
+      <div class="col">
+        <h3 data-i18n="extras_contact">Contact Us</h3>
+        <ul class="links-list">
+          <li><a href="https://wa.me/628989282512" target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href="mailto:shalcnzee@gmail.com">Email</a></li>
+          <li><a href="tel:+628989282512">Telepon</a></li>
+        </ul>
+      </div>
       <div>
-        <h3>Sosial Media</h3>
+        <h3 data-i18n="extras_social">Sosial Media</h3>
         <div class="social">
-          <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-          <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-          <a href="https://www.tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+          <a href="https://www.instagram.com/pfgymandfitness?igsh=dGMwb2QyMHVubTl5" target="_blank" rel="noopener" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href="https://www.tiktok.com/@pfgymandfitness?_r=1&_t=ZS-91sji24yUSd" target="_blank" rel="noopener" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+          <a href="https://youtube.com/@pfgymandfitness?si=tXw3P_EJ4ITTxPmk" target="_blank" rel="noopener" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
         </div>
       </div>
     </div>

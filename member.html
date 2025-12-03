@@ -16,10 +16,11 @@
       <img src="pfgymlogo.png?v=3" alt="PF Gym & Fitness Logo" />
     </a>
     <nav class="nav">
-      <a href="index.html#top" class="nav-link">Beranda</a>
-      <a href="about.html" class="nav-link">Tentang Kami</a>
-      <a href="index.html#testi" class="nav-link">Testimoni</a>
-      <a href="bmi.html" class="nav-link">Tes BMI</a>
+      <a href="index.html#top" class="nav-link" data-i18n="nav_home">Beranda</a>
+      <a href="about.html" class="nav-link" data-i18n="nav_about">Tentang Kami</a>
+      <a href="index.html#testi" class="nav-link" data-i18n="nav_testi">Testimoni</a>
+      <a href="bmi.html" class="nav-link" data-i18n="nav_bmi">Tes BMI</a>
+      <span class="lang-switch"><a href="index.html" data-lang="id" class="active">IN</a><a href="index-en.html" data-lang="en">ENG</a></span>
     </nav>
     <button class="menu-btn" id="menuBtn" aria-label="Menu"><i class="bi bi-list"></i></button>
     <div class="mobile-menu" id="mobileMenu">
@@ -28,6 +29,11 @@
       <a href="index.html#testi" class="m-item">Testimoni</a>
       <a href="bmi.html" class="m-item">Tes BMI</a>
       <a href="login.html" class="m-item">Login</a>
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,.12);margin:8px 0">
+      <div style="display:flex;gap:8px;padding:4px 8px">
+        <a href="index.html" class="m-item lang active" style="flex:1;text-align:center">IN</a>
+        <a href="index-en.html" class="m-item lang" style="flex:1;text-align:center">ENG</a>
+      </div>
     </div>
     <div class="menu-overlay" id="menuOverlay"></div>
   </header>
@@ -36,18 +42,18 @@
     <section class="member" style="gap:16px">
       <div style="width:100%;max-width:900px;display:flex;align-items:center;justify-content:space-between">
         <a href="index.html#harga" class="back-btn"><i class="bi bi-arrow-left"></i> Kembali</a>
-        <h1 class="page-title">Formulir Pendaftaran</h1>
+        <h1 class="page-title" data-i18n="member_title">Formulir Pendaftaran</h1>
         <span></span>
       </div>
       <div class="form-card">
       <div id="formErrors" class="form-errors" style="display:none"></div>
       <form id="memberForm" class="form">
         <div class="form-row">
-          <label for="nama">Nama</label>
+          <label for="nama" data-i18n="member_name">Nama</label>
           <input id="nama" name="nama" type="text" required>
         </div>
         <div class="form-row">
-          <label for="jk">Jenis Kelamin</label>
+          <label for="jk" data-i18n="member_gender">Jenis Kelamin</label>
           <select id="jk" name="jk" required>
             <option value="" selected>Pilih</option>
             <option value="Laki-laki">Laki-laki</option>
@@ -55,15 +61,15 @@
           </select>
         </div>
         <div class="form-row">
-          <label for="tempatLahir">Tempat Lahir</label>
+          <label for="tempatLahir" data-i18n="member_birthplace">Tempat Lahir</label>
           <input id="tempatLahir" name="tempatLahir" type="text" required>
         </div>
         <div class="form-row">
-          <label for="tglLahir">Tanggal Lahir</label>
+          <label for="tglLahir" data-i18n="member_birthdate">Tanggal Lahir</label>
           <input id="tglLahir" name="tglLahir" type="date" required>
         </div>
         <div class="form-row">
-          <label for="agama">Agama</label>
+          <label for="agama" data-i18n="member_religion">Agama</label>
           <select id="agama" name="agama" required>
             <option value="" selected>Pilih</option>
             <option value="Islam">Islam</option>
@@ -75,7 +81,7 @@
           </select>
         </div>
         <div class="form-row">
-          <label for="pekerjaan">Pekerjaan</label>
+          <label for="pekerjaan" data-i18n="member_job">Pekerjaan</label>
           <select id="pekerjaan" name="pekerjaan" required>
             <option value="" selected>Pilih</option>
             <option value="Karyawan Swasta">Karyawan swasta</option>
@@ -93,19 +99,19 @@
           <input id="pekerjaanLain" name="pekerjaanLain" type="text" placeholder="Tuliskan pekerjaan Anda">
         </div>
         <div class="form-row" style="grid-column:span 2">
-          <label for="alamat">Alamat di Jogja</label>
+          <label for="alamat" data-i18n="member_address">Alamat di Jogja</label>
           <textarea id="alamat" name="alamat" required></textarea>
         </div>
         <div class="form-row">
-          <label for="wa">Nomor WhatsApp</label>
+          <label for="wa" data-i18n="member_wa">Nomor WhatsApp</label>
           <input id="wa" name="wa" type="tel" placeholder="08xxxxxxxxxx" required>
         </div>
         <div class="form-row">
-          <label for="email">Email</label>
+          <label for="email" data-i18n="member_email">Email</label>
           <input id="email" name="email" type="email">
         </div>
         <div class="form-row">
-          <label for="lokasi">Cabang</label>
+          <label for="lokasi" data-i18n="member_branch">Cabang</label>
           <select id="lokasi" name="lokasi" required>
             <option value="" selected>Pilih</option>
             <option value="Condongcatur">Condongcatur</option>
@@ -113,7 +119,7 @@
           </select>
         </div>
         <div class="form-row">
-          <label for="paket">Pilih Paket</label>
+          <label for="paket" data-i18n="member_package">Pilih Paket</label>
           <select id="paket" name="paket" required>
             <option value="" selected>Pilih</option>
             <option value="Harian 25k">Harian 25k</option>
@@ -128,7 +134,7 @@
             <option value="6 Bulan Group 548k">6 Bulan Group 548k</option>
           </select>
         </div>
-        <button type="submit" class="submit" id="memberSubmit">Kirim</button>
+        <button type="submit" class="submit" id="memberSubmit" data-i18n="member_submit">Kirim</button>
       </form>
       </div>
     </section>

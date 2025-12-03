@@ -37,6 +37,7 @@
       <a href="about.html" class="nav-link">Tentang Kami</a>
       <a href="index.html#testi" class="nav-link">Testimoni</a>
       <a href="bmi.html" class="nav-link">Tes BMI</a>
+      
     </nav>
   </header>
 
@@ -59,7 +60,6 @@
             <div class="hours-row"><label>Minggu</label><input id="mingguOpen" type="time" value="08:00"><input id="mingguClose" type="time" value="21:00"><select id="mingguClosed"><option value="false">Buka</option><option value="true" selected>Tutup</option></select></div>
           </div>
           <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px">
-            <button type="button" id="loginBtn" class="cta">LOGIN</button>
             <button type="button" id="logoutBtn" class="cta">LOGOUT</button>
             <button type="button" id="saveCloudBtn" class="cta">SIMPAN</button>
           </div>
@@ -74,5 +74,31 @@
   </footer>
   <a href="https://wa.me/628989282512" class="wa-float" aria-label="Chat WhatsApp"><i class="bi bi-whatsapp"></i></a>
   <script src="app.js?v=29"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded',function(){
+      try{
+        if(!(window.firebaseUtil && window.firebaseUtil.enabled)){
+          alert('eits login dulu'); location.href='login.html'; return;
+        }
+        var decided=false;
+        window.firebaseUtil.onAuth(function(){
+          if(decided) return;
+          decided=true;
+          if(window.firebaseUtil.isOwner && window.firebaseUtil.isOwner()){
+            return;
+          }
+          alert('eits login dulu'); location.href='login.html';
+        });
+        setTimeout(function(){
+          if(decided) return;
+          decided=true;
+          if(!(window.firebaseUtil.isOwner && window.firebaseUtil.isOwner())){
+            alert('eits login dulu'); location.href='login.html';
+          }
+        },1500);
+        window.addEventListener('beforeunload',function(){ try{ if(window.firebaseUtil && window.firebaseUtil.enabled){ window.firebaseUtil.logout(); } }catch(_){ } });
+      }catch(e){ alert('eits login dulu'); location.href='login.html'; }
+    });
+  </script>
 </body>
 </html>

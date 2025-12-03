@@ -16,10 +16,11 @@
       <img src="pfgymlogo.png?v=3" alt="PF Gym & Fitness Logo" />
     </a>
     <nav class="nav">
-      <a href="index.html#top" class="nav-link">Beranda</a>
-      <a href="about.html" class="nav-link active">Tentang Kami</a>
-      <a href="index.html#testi" class="nav-link">Testimoni</a>
-      <a href="bmi.html" class="nav-link">Tes BMI</a>
+      <a href="index.html#top" class="nav-link" data-i18n="nav_home">Beranda</a>
+      <a href="about.html" class="nav-link active" data-i18n="nav_about">Tentang Kami</a>
+      <a href="index.html#testi" class="nav-link" data-i18n="nav_testi">Testimoni</a>
+      <a href="bmi.html" class="nav-link" data-i18n="nav_bmi">Tes BMI</a>
+      <span class="lang-switch"><a href="index.html" data-lang="id" class="active">IN</a><a href="index-en.html" data-lang="en">ENG</a></span>
     </nav>
     <button class="menu-btn" id="menuBtn" aria-label="Menu"><i class="bi bi-list"></i></button>
     <div class="mobile-menu" id="mobileMenu">
@@ -28,6 +29,11 @@
       <a href="index.html#testi" class="m-item">Testimoni</a>
       <a href="bmi.html" class="m-item">Tes BMI</a>
       <a href="login.html" class="m-item">Login</a>
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,.12);margin:8px 0">
+      <div style="display:flex;gap:8px;padding:4px 8px">
+        <a href="index.html" class="m-item lang active" style="flex:1;text-align:center">IN</a>
+        <a href="index-en.html" class="m-item lang" style="flex:1;text-align:center">ENG</a>
+      </div>
     </div>
     <div class="menu-overlay" id="menuOverlay"></div>
   </header>
@@ -36,17 +42,17 @@
     <section class="about-exp">
       <div class="wrap">
         <div>
-          <h2 class="big-red">KAMI PUNYA BANYAK</h2>
-          <h3 class="big-white">PENGALAMAN</h3>
-          <p>Siap jadi versi terbaik dari dirimu? Di PF Gym, kami hadir untuk kamu yang ingin sehat tanpa ribet dan mahal. Fasilitas lengkap, tempat bersih dan nyaman, pelatih bersertifikat, sampai body measurement gratis — semua ada di sini. Ada juga Coaching Clinic gratis buat bantu kamu sampai tujuan fitness kamu. Tim kami ramah, harga terjangkau, dan lokasi mudah dijangkau. Keamanan dan kenyamanan selalu jadi prioritas. Yuk gabung dan jadi bagian dari komunitas sehat dan kuat kami!</p>
+          <h2 class="big-white" data-i18n="about_title">Visi & Misi Kami</h2>
+          <p data-i18n="about_p1">Menjadi pusat kebugaran premium yang menginspirasi dan membina komunitas yang kuat dalam kesehatan dan kebugaran melalui edukasi kebugaran dasar. Kami berupaya menghadirkan fasilitas yang lengkap, suasana yang nyaman, serta mampu melayani seluruh lapisan masyarakat.</p>
         </div>
         <div class="about-img"><img src="about.png" alt="PF Gym - pengalaman latihan" loading="lazy"></div>
       </div>
     </section>
 
     <section class="story" aria-labelledby="bagaimana">
-      <h2 id="bagaimana"><i class="bi bi-fire"></i> Awal mulanya</h2>
-      <p>Kami melihat banyak teman butuh tempat latihan yang “masuk akal”: fasilitas oke, harga nggak bikin pusing, dan atmosfer yang nggak bikin sungkan. Dari situ PF Gym jalan. Bukan franchise — murni tumbuh dari komunitas Jogja. Sekarang kami aktif melayani member di dua cabang, dengan target tetap sama: bikin latihan terasa asik dan berprogress.</p>
+      <h2 id="bagaimana" data-i18n="about_commit"><i class="bi bi-fire"></i> Komitmen Kami</h2>
+      <p data-i18n="about_p2">Kami berdedikasi untuk mendidik dan memberdayakan member melalui edukasi kebugaran dasar, memastikan mereka mencapai tujuan kebugaran sambil memahami pentingnya kesehatan jangka panjang. Komitmen kami juga mencakup akses kebugaran bagi seluruh lapisan masyarakat, termasuk wilayah tier 3, dengan mengurangi hambatan ekonomi. Kami terus meningkatkan kualitas dan berinovasi dengan memperbarui serta menyempurnakan fasilitas dan layanan, mengintegrasikan teknologi dan tren kebugaran terbaru untuk menghadirkan pengalaman terbaik.</p>
+      <p data-i18n="about_p3">Kami membangun komunitas yang kuat dan suportif, di mana setiap member merasa dihargai dan terhubung, menumbuhkan rasa memiliki dalam keluarga PF Gym & Fitness. Selain itu, kami memprioritaskan keselamatan dan kesejahteraan member dalam setiap aspek layanan, serta berkomitmen pada praktik yang berkelanjutan dan ramah lingkungan.</p>
     </section>
   </main>
 

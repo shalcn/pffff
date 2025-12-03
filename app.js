@@ -26,6 +26,20 @@ document.addEventListener('DOMContentLoaded',function(){
   };
   window.addEventListener('scroll',onScroll,{passive:true});
   onScroll();
+  var lang = localStorage.getItem('pf_lang') || 'id';
+  function applyLang(){
+    var dicts={
+      id:{nav_home:'Beranda',nav_about:'Tentang Kami',nav_testi:'Testimoni',nav_bmi:'Tes BMI',nav_login:'Login',extras_more:'Lainnya',extras_contact:'Contact Us',extras_social:'Sosial Media',login_title:'Login',bmi_title:'Tes BMI',member_title:'Formulir Pendaftaran',member_name:'Nama',member_gender:'Jenis Kelamin',member_birthplace:'Tempat Lahir',member_birthdate:'Tanggal Lahir',member_religion:'Agama',member_job:'Pekerjaan',member_address:'Alamat di Jogja',member_wa:'Nomor WhatsApp',member_email:'Email',member_branch:'Cabang',member_package:'Pilih Paket',member_submit:'Kirim'},
+      en:{nav_home:'Home',nav_about:'About',nav_testi:'Testimonials',nav_bmi:'BMI Test',nav_login:'Login',extras_more:'More',extras_contact:'Contact Us',extras_social:'Social Media',login_title:'Login',bmi_title:'BMI Test',member_title:'Registration Form',member_name:'Name',member_gender:'Gender',member_birthplace:'Birthplace',member_birthdate:'Birthdate',member_religion:'Religion',member_job:'Occupation',member_address:'Address in Jogja',member_wa:'WhatsApp Number',member_email:'Email',member_branch:'Branch',member_package:'Choose Package',member_submit:'Send',about_title:'Our Vision & Mission',about_p1:'To become a premium fitness center that inspires and nurtures a strong community in health and wellness through foundational fitness education. We aim to be a fitness center equipped with comprehensive facilities, a comfortable atmosphere, and the ability to cater to all segments of society.',about_commit:'Our Commitment',about_p2:'We are dedicated to educating and empowering our members by providing foundational fitness education, ensuring they achieve their fitness goals while understanding the importance of long-term health and wellness. Our commitment extends to making fitness and health accessible to all segments of society, particularly in tier 3 areas, by removing economic barriers. We continuously strive for quality and innovation by updating and enhancing our facilities and services, integrating the latest technology and fitness trends to offer the best experience.',about_p3:'We aim to build a strong, supportive community where every member feels valued and connected, fostering a sense of belonging within the PF Gym & Fitness family. Additionally, we prioritize the well-being and safety of our members in all aspects of our services, while committing to sustainable and environmentally friendly operations.',testi_title:'PF Gym Testimonials',back:'Back'}
+    };
+    var map=dicts[lang];
+    if(!map) return;
+    document.querySelectorAll('[data-i18n]').forEach(function(el){ var k=el.getAttribute('data-i18n'); if(map[k]) el.textContent=map[k]; });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el){ var k=el.getAttribute('data-i18n-placeholder'); if(map[k]) el.setAttribute('placeholder', map[k]); });
+    document.querySelectorAll('.lang-switch a').forEach(function(a){ a.classList.toggle('active', a.getAttribute('data-lang')===lang); });
+  }
+  applyLang();
+  document.querySelectorAll('.lang-switch a').forEach(function(a){ a.addEventListener('click', function(e){ var href=a.getAttribute('href')||'#'; if(href==='#'){ e.preventDefault(); lang=a.getAttribute('data-lang'); localStorage.setItem('pf_lang', lang); applyLang(); } /* else allow navigation to language-specific page */ }); });
   var heroBg=document.querySelector('.hero-bg');
   if(heroBg){
     var baseLayers=[
@@ -227,16 +241,24 @@ document.addEventListener('DOMContentLoaded',function(){
     if(!list) return;
     try{
       var cfg=window._hoursCfg || (loadHours && loadHours());
+      var lang=document.documentElement.lang||'';
+      var mapENtoID={'Monday':'Senin','Tuesday':'Selasa','Wednesday':'Rabu','Thursday':'Kamis','Friday':'Jumat','Saturday':'Sabtu','Sunday':'Minggu'};
       list.querySelectorAll('li').forEach(function(li){
         var spans=li.querySelectorAll('span');
         if(spans.length<2) return;
-        var label=spans[0].textContent.trim();
+        var rawLabel=spans[0].textContent.trim();
+        var label=(lang.toLowerCase()==='en') ? (mapENtoID[rawLabel]||rawLabel) : rawLabel;
         var indicator=spans[2];
         if(!indicator){indicator=document.createElement('span');li.appendChild(indicator)}
         var cfgDay = cfg ? cfg[label] : null;
         if(!cfgDay){indicator.textContent='';indicator.classList.remove('open');return}
-        if(cfgDay.closed){indicator.textContent='';indicator.classList.remove('open');}
-        else{indicator.textContent='BUKA';indicator.classList.add('open');}
+        if(cfgDay.closed){
+          indicator.textContent='';
+          indicator.classList.remove('open');
+        }else{
+          indicator.textContent=(lang.toLowerCase()==='en'?'OPEN':'BUKA');
+          indicator.classList.add('open');
+        }
       });
     }catch(e){/* no-op */}
   };
@@ -265,11 +287,12 @@ document.addEventListener('DOMContentLoaded',function(){
         var parseHM=function(s){var hm=s.trim().split(':');return (parseInt(hm[0],10)||0)*60+(parseInt(hm[1],10)||0)};
         var openHM=openStr?parseHM(openStr):parseHM('06:00');
         var closeHM=closeStr?parseHM(closeStr):parseHM('21:00');
+        var lang=document.documentElement.lang||'';
         if(nowHM>=openHM && nowHM<closeHM){
-          indicator.textContent='BUKA';
+          indicator.textContent=(lang.toLowerCase()==='en'?'OPEN':'BUKA');
           indicator.classList.add('open');
         }else{
-          indicator.textContent='TUTUP';
+          indicator.textContent=(lang.toLowerCase()==='en'?'CLOSED':'TUTUP');
           indicator.classList.remove('open');
         }
       });
@@ -393,22 +416,39 @@ document.addEventListener('DOMContentLoaded',function(){
         var spans=li.querySelectorAll('span');
         if(spans.length<2) return;
         var label=spans[0].textContent.trim();
-        var c=cfg[label];
+        var key=label;
+        var lang=document.documentElement.lang||'';
+        if(lang.toLowerCase()==='en'){
+          var map={'Monday':'Senin','Tuesday':'Selasa','Wednesday':'Rabu','Thursday':'Kamis','Friday':'Jumat','Saturday':'Sabtu','Sunday':'Minggu'};
+          key=map[key]||key;
+        }
+        var c=cfg[key];
         if(!c) return;
-        spans[1].textContent = (c.open||'06:00')+' - '+(c.close||'21:00');
+        var isClosed = !!c.closed;
+        if(isClosed){
+          spans[1].textContent = (lang.toLowerCase()==='en'?'Closed':'Tutup');
+        }else{
+          spans[1].textContent = (c.open||'06:00')+' - '+(c.close||'21:00');
+        }
         var indicator=spans[2];
         if(!indicator){indicator=document.createElement('span');li.appendChild(indicator)}
-        if(c.closed){indicator.textContent='';indicator.classList.remove('open');}
-        else{indicator.textContent='BUKA';indicator.classList.add('open');}
+        if(isClosed){indicator.textContent='';indicator.classList.remove('open');}
+        else{indicator.textContent=(lang.toLowerCase()==='en'?'OPEN':'BUKA');indicator.classList.add('open');}
       });
     };
-    var src='hours.json';
     try{
-      fetch(src+'?v='+Date.now(),{cache:'no-store'})
-        .then(function(r){return r.json()})
-        .then(function(d){window._hoursCfg=d; render(d); updateOpenStatus();})
-        .catch(function(){var cfg=loadHours(); window._hoursCfg=cfg; render(cfg); updateOpenStatus();});
-    }catch(e){var cfg=loadHours(); window._hoursCfg=cfg; render(cfg); updateOpenStatus();}
+      if(window.firebaseUtil && window.firebaseUtil.enabled){
+        window.firebaseUtil.loadHours().then(function(d){
+          window._hoursCfg=d; try{ localStorage.setItem('pf_hours', JSON.stringify(d||{})); }catch(_){}
+          render(d); updateOpenStatus();
+        }).catch(function(){ var cfg=loadHours(); window._hoursCfg=cfg; render(cfg); updateOpenStatus(); });
+      } else {
+        fetch('hours.json?v='+Date.now(),{cache:'no-store'})
+          .then(function(r){return r.json()})
+          .then(function(d){ window._hoursCfg=d; try{ localStorage.setItem('pf_hours', JSON.stringify(d||{})); }catch(_){} render(d); updateOpenStatus(); })
+          .catch(function(){ var cfg=loadHours(); window._hoursCfg=cfg; render(cfg); updateOpenStatus(); });
+      }
+    }catch(e){ var cfg=loadHours(); window._hoursCfg=cfg; render(cfg); updateOpenStatus(); }
   };
   applyHoursToIndex();
 
@@ -422,13 +462,19 @@ document.addEventListener('DOMContentLoaded',function(){
             var spans=li.querySelectorAll('span');
             if(spans.length<2) return;
             var label=spans[0].textContent.trim();
-            var c=cfg[label];
+            var key=label;
+            var lang=document.documentElement.lang||'';
+            if(lang.toLowerCase()==='en'){
+              var map={'Monday':'Senin','Tuesday':'Selasa','Wednesday':'Rabu','Thursday':'Kamis','Friday':'Jumat','Saturday':'Sabtu','Sunday':'Minggu'};
+              key=map[key]||key;
+            }
+            var c=cfg[key];
             if(!c) return;
             spans[1].textContent=(c.open||'06:00')+' - '+(c.close||'21:00');
             var indicator=spans[2];
             if(!indicator){indicator=document.createElement('span');li.appendChild(indicator)}
             if(c.closed){indicator.textContent='';indicator.classList.remove('open');}
-            else{indicator.textContent='BUKA';indicator.classList.add('open');}
+            else{indicator.textContent=(lang.toLowerCase()==='en'?'OPEN':'BUKA');indicator.classList.add('open');}
           });
           window._hoursCfg=cfg; updateOpenStatus();
         }).catch(function(){/* ignore */});
@@ -475,7 +521,7 @@ document.addEventListener('DOMContentLoaded',function(){
       };
     };
 
-    var validateOpen=function(cfg){ var cnt=0; Object.keys(cfg).forEach(function(k){ if(!cfg[k].closed) cnt++; }); if(cnt!==1){ alert('eits hari buka cuma boleh satu'); return false; } return true; };
+    var validateOpen=function(cfg){ var cnt=0; Object.keys(cfg).forEach(function(k){ if(!cfg[k].closed) cnt++; }); if(cnt===0){ alert('selamat PFGYM berhasil ditutup'); return true; } if(cnt>1){ alert('eits hari buka maksimal satu'); return false; } return true; };
     
 
     var loginBtn=document.getElementById('loginBtn');
